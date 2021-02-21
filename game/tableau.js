@@ -17,7 +17,7 @@ class Tableau{
     }
 
     Retirer(ligne, nbAllu){
-        if (ligne <= 4 && nbAllu <= 7){
+        if (ligne > 0 && ligne <= 4 && nbAllu <= 7 && nbAllu > 0){
             let countAlu = 0
             for (let i = 0; i < 7; i++){
                 if (this.tableau[ligne-1][i][0] == "|"){
@@ -29,12 +29,47 @@ class Tableau{
                     this.tableau[ligne-1][ligne+2-y][0] = " "
                 }
             }
+            this.Affichage()
+            return true
         }
         else{
-            if (ligne > 4){
+            if (ligne > 4 && ligne <= 0){
                 console.log("\nError: this line is out of range")
             }
+            console.log("\nError: this line is out of range")
+            return false
         }
+    }
+
+    LigneVide(index){
+        let ligneVide = false
+        let count = 0
+        let tab = []
+        for (let i = 0; i < 7; i++){
+            if (this.tableau[index-1][i][0] == "|"){
+                count += 1 
+            }
+        }
+        if (count == 0){
+            ligneVide = true
+        }
+        tab.push(ligneVide)
+        tab.push(count)
+        return tab
+    }
+
+    TableauVide(){
+        let count = 0
+        this.tableau.forEach(tableau1 => {
+            tableau1.forEach(tableau2 => {
+                tableau2.forEach(element =>{
+                    if (element == "|"){
+                        count += 1
+                    }
+                })
+            });
+        });
+        return count
     }
         
     Affichage(){
@@ -47,7 +82,7 @@ class Tableau{
             });
             process.stdout.write('*' + allumette + '* \n')
         });
-        process.stdout.write("*********")
+        process.stdout.write("*********\n")
     }
 
 }
