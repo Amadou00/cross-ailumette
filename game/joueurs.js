@@ -8,35 +8,28 @@ class Joueurs{
         return this.tour
     }
 
-    AI_Tour(){
-        // Faire un random pour les lignes et le nombre d'alumette à retirer + vérification
-        let ligne = 0
-        let allu = 0
-        let table = []
-        while (ligne < 1 || ligne > 4){
-            ligne = Math.floor(Math.random() * 10)
+    AI_Allu(nbAlluDispo){
+        let allumette = Math.floor(Math.random() * 10)
+        while (allumette > nbAlluDispo){
+            allumette = Math.floor(Math.random() * 10)
         }
-        while (allu < 1 || allu > 7){
-            allu = Math.floor(Math.random() * 10)
-        }
-        table.push(ligne)
-        table.push(allu)
-        return table
+        return allumette+1
     }
 
-    AI_Tour(nb_a_eviter){
-        let ligne = 0
-        let allu = 0
-        let table = []
-        while (ligne < 1 || ligne > 4 || ligne == nb_a_eviter){
-            ligne = Math.floor(Math.random() * 10)
+    AI_Lignes(lignes){
+        let validation = false
+        let rdmLigne = Math.floor(Math.random() * 10)
+        while (validation != true){
+            lignes.forEach(ligne => {
+                if (ligne == rdmLigne){
+                    validation = true
+                }
+            });
+            if (validation != true){
+                rdmLigne = Math.floor(Math.random() * 10)
+            }
         }
-        while (allu < 1 || allu > 7){
-            allu = Math.floor(Math.random() * 10)
-        }
-        table.push(ligne)
-        table.push(allu)
-        return table
+        return rdmLigne
     }
 }
 

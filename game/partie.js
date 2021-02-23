@@ -13,9 +13,10 @@ let line = null
 //var pour IA
 let tourAI = false
 let randomTab = []
-let ligneVide = false
+let AILignes = 0
 let alluRestante = 0
-let ligneOK = false
+let ligneRestante = []
+let terminer = false
 
 tableau.CreationTableau()
 while (tableau.TableauVide() != 0){
@@ -43,30 +44,57 @@ while (tableau.TableauVide() != 0){
         }
     }
     
-        // Faire Jouer l'IA
+    // Faire Jouer l'IA
     tourAI = AI.ChangerTour()
+
     if (tourAI == true && tourJoueur == false){
         console.log("\nAI’s turn...")
-        // Appeler la fonction AI_Tour() de Joueur
-        randomTab = AI.AI_Tour()
-        ligneVide = tableau.LigneVide(randomTab[0])[0]
-        while (ligneVide[0]){
-            randomTab[0] = AI.AI_Tour(randomTab[0])[0]
-            ligneVide = tableau.LigneVide(randomTab[0])
-        }
-        alluRestante =  tableau.LigneVide(randomTab[0])[1]
-        while (randomTab[1] > alluRestante){
-            (randomTab)
-            randomTab[1] = AI.AI_Tour(randomTab[1])[1]
-        }
-        console.log("AI removed "+ randomTab[0] +" match(es) from line "+ randomTab[1])
-        tableau.Retirer(randomTab[0], randomTab[1])
+
+        // Vérifier le nombre de ligne restante
+        ligneRestante = tableau.LigneRestante()
+        AILignes = AI.AI_Lignes(ligneRestante)
+        console.log(AILignes)
+
+        // Vérifier le nombre de allumettes restante
+        alluRestante = tableau.AllumettesRestante(AILignes)
+        AIAllu = AI.AI_Allu(alluRestante)
+        
+        console.log("AI removed "+ AIAllu +" match(es) from line "+ AILignes)
+        tableau.Retirer(AILignes, AIAllu)
+
         tourAI = false
         AI.ChangerTour()
         tableau.TableauVide()
+
         if (tableau.TableauVide() == 0){
             console.log("\nI lost.. snif.. but I’ll get you next time!!\n")
         }
-
     }
+
+
+    
+    // if (tourAI == true && tourJoueur == false){
+    //     console.log("\nAI’s turn...")
+    //     // Appeler la fonction AI_Tour() de Joueur
+    //     randomTab = AI.AI_Tour()
+    //     ligneVide = tableau.LigneVide(randomTab[0])[0]
+    //     while (ligneVide[0]){
+    //         randomTab[0] = AI.AI_Tour(randomTab[0])[0]
+    //         ligneVide = tableau.LigneVide(randomTab[0])
+    //     }
+    //     alluRestante =  tableau.LigneVide(randomTab[0])[1]
+    //     while (randomTab[1] > alluRestante){
+    //         (randomTab)
+    //         randomTab[1] = AI.AI_Tour(randomTab[1])[1]
+    //     }
+    //     console.log("AI removed "+ randomTab[0] +" match(es) from line "+ randomTab[1])
+    //     tableau.Retirer(randomTab[0], randomTab[1])
+    //     tourAI = false
+    //     AI.ChangerTour()
+    //     tableau.TableauVide()
+    //     if (tableau.TableauVide() == 0){
+    //         console.log("\nI lost.. snif.. but I’ll get you next time!!\n")
+    //     }
+
+    // }
 }

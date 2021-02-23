@@ -41,22 +41,54 @@ class Tableau{
         }
     }
 
-    LigneVide(index){
-        let ligneVide = false
-        let count = 0
+    LigneRestante(){
         let tab = []
-        for (let i = 0; i < 7; i++){
-            if (this.tableau[index-1][i][0] == "|"){
-                count += 1 
+        let count = 0
+        let pipeHere = false
+        this.tableau.forEach(line => {
+            count += 1
+            for (let i = 0; i < 7; i++){
+                if (line[i][0] == "|"){
+                    pipeHere = true
+                }
             }
-        }
-        if (count == 0){
-            ligneVide = true
-        }
-        tab.push(ligneVide)
-        tab.push(count)
+            if (pipeHere){
+                tab.push(count)
+                pipeHere = false
+            }
+        });
         return tab
     }
+
+    AllumettesRestante(ligne){
+        let countAlu = 0
+        for (let i = 0; i < 7; i++){
+            if (this.tableau[ligne-1][i][0] == "|"){
+                countAlu += 1
+            }
+        }
+        console.log(countAlu)
+        return countAlu
+    }
+
+
+
+    // LigneVide(index){
+    //     let ligneVide = false
+    //     let count = 0
+    //     let tab = []
+    //     for (let i = 0; i < 7; i++){
+    //         if (this.tableau[index-1][i][0] == "|"){
+    //             count += 1 
+    //         }
+    //     }
+    //     if (count == 0){
+    //         ligneVide = true
+    //     }
+    //     tab.push(ligneVide)
+    //     tab.push(count)
+    //     return tab
+    // }
 
     TableauVide(){
         let count = 0
